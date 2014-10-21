@@ -8,6 +8,46 @@ args:
   github:
     use: common_args
 
+  version:
+    flags: [--version]
+    help: "Specify the dap version"
+    default: '0.0.1dev'
+
+  license:
+    flags: [--license]
+    help: "Specify the dap license"
+    default: 'FIXME'
+
+  homepage:
+    flags: [--homepage]
+    help: "Specify the dap homepage"
+    default: 'FIXME'
+
+  bugreports:
+    flags: [--bugreports]
+    help: "Specify where to report bugs"
+    default: ''
+
+  summary:
+    flags: [--summary]
+    help: "Specify the dap summary"
+    default: 'A fresh new dap'
+
+  description:
+    flags: [--description]
+    help: "Specify the dap description"
+    default: ''
+
+  author:
+    flags: [--author]
+    help: "Specify the name of the author (without the e-mail address)"
+    default: '$(git config --global user.name)'
+
+  email:
+    flags: [--email]
+    help: "Specify the e-mail address of the author"
+    default: '$(git config --global user.email)'
+
   crt:
     use: dap
 
@@ -30,13 +70,28 @@ run:
     create_topdir: True
     contdir_var: dirname
     topdir_normalized_var: basename
-- log_i: 'Creating dap directory structure'
 - cl: cd "$basename"
+
+- log_i: 'Creating meta.yaml'
+- cl: 'echo "package_name: $basename" > meta.yaml'
+- cl: 'echo "version: $version" >> meta.yaml'
+- cl: 'echo "license: $license" >> meta.yaml'
+- cl: 'echo "summary: $summary" >> meta.yaml'
+- cl: 'echo "homepage: $homepage" >> meta.yaml'
+- if $bugreports:
+  - cl: 'echo "bugreports: $bugreports" >> meta.yaml'
+- cl: 'echo "authors: [$author <$email>]" >> meta.yaml'
+- if $description:
+  - cl: 'echo "description: $description" >> meta.yaml'
+
+- log_i: 'Creating dap directory structure'
 - cl: mkdir -p "assistants"
+
 - if not ($crt or $mod or $prep or $task):
   - cl: touch "assistants/.gitkeep"
   - if not $snippet:
     - log_w: 'You have not specified any of the following options: --crt, --mod, --prep, --task, --snippet. To add assistant or snippet later, use "da mod dap add" assistant.'
+
 - cl: mkdir -p "docs/$basename"
 - cl: touch "docs/$basename/LICENSE"
 - cl: mkdir -p "files/$basename"
@@ -44,6 +99,7 @@ run:
 - cl: mkdir -p "icons/$basename"
 - cl: touch "icons/$basename/.gitkeep"
 - cl: echo '*.dap' > .gitignore
+
 - use: dap.run
 - use: git_init_add_commit.run
 - if defined $github:
