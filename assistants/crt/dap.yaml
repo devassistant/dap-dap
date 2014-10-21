@@ -9,49 +9,19 @@ args:
     use: common_args
 
   crt:
-    flags:
-    - --crt
-    action: store_const
-    const: crt
-    default: ''
-    help:
-      'Create empty crt assistant'
+    use: dap
 
   mod:
-    flags:
-    - --mod
-    action: store_const
-    const: mod
-    default: ''
-    help:
-      'Create empty mod assistant'
+    use: dap
 
   prep:
-    flags:
-    - --prep
-    action: store_const
-    const: prep
-    default: ''
-    help:
-      'Create empty prep assistant'
+    use: dap
 
   task:
-    flags:
-    - --task
-    action: store_const
-    const: task
-    default: ''
-    help:
-      'Create empty task assistant'
+    use: dap
 
   snippet:
-    flags:
-    - --snippet
-    action: store_const
-    const: snippet
-    default: ''
-    help:
-      'Create empty snippet'
+    use: dap
 
 run:
 - setup_project_dir:
@@ -74,26 +44,7 @@ run:
 - cl: mkdir -p "icons/$basename"
 - cl: touch "icons/$basename/.gitkeep"
 - cl: echo '*.dap' > .gitignore
-- if $crt:
-  - log_i: 'Creating empty crt assistant in assistants/crt/$basename.yaml'
-  - cl: mkdir assistants/crt
-  - cl: 'echo "fullname: $basename" > "assistants/crt/$basename.yaml"'
-- if $mod:
-  - log_i: 'Creating empty mod assistant in assistants/mod/$basename.yaml'
-  - cl: mkdir assistants/mod
-  - cl: 'echo "fullname: $basename" > "assistants/mod/$basename.yaml"'
-- if $prep:
-  - log_i: 'Creating empty prep assistant in assistants/prep/$basename.yaml'
-  - cl: mkdir assistants/prep
-  - cl: 'echo "fullname: $basename" > "assistants/prep/$basename.yaml"'
-- if $task:
-  - log_i: 'Creating empty task assistant in assistants/task/$basename.yaml'
-  - cl: mkdir assistants/task
-  - cl: 'echo "fullname: $basename" > "assistants/task/$basename.yaml"'
-- if $snippet:
-  - log_i: 'Creating empty snippet in snippets/$basename.yaml'
-  - cl: mkdir snippets
-  - cl: 'echo "fullname: $basename" > "snippets/$basename.yaml"'
+- use: dap.run
 - use: git_init_add_commit.run
 - if defined $github:
   - github: create_and_push
