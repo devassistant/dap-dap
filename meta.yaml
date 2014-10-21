@@ -1,0 +1,11 @@
+package_name: dap
+version: 0.0.1dev
+license: GPLv2+
+authors: [Miro Hrončok <miro@hroncok.cz>]
+homepage: https://github.com/devassistant/dap-dap
+summary: Assistants for creating daps - DevAssistant packages
+bugreports: https://github.com/devassistant/dap-dap/issues
+description: |
+    This assistants helps you with creating daps - DevAssistant packages.
+    It lets you create the git repository with the sources and also to package
+    the assistants as dap file.
