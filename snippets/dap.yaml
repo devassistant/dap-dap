@@ -64,4 +64,4 @@ run:
 - if $snippet:
   - log_i: 'Creating empty snippet in snippets/$basename.yaml'
   - cl: mkdir snippets
-  - cl: 'echo "fullname: $basename" > "snippets/$basename.yaml"'
+  - cl: touch "snippets/$basename.yaml"
