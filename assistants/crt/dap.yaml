@@ -1,9 +1,6 @@
 fullname: DevAssistant package
 description: Set up environment for DevAssistant package development
 
-dependencies:
-- rpm: ['devassistant']
-
 args:
   name:
     use: common_args
