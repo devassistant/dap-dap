@@ -45,23 +45,45 @@ args:
       'Create empty snippet'
 
 run:
+- if not $basename:
+  - $basename~: $(basename $PWD)
+
 - if $crt:
-  - log_i: 'Creating empty crt assistant in assistants/crt/$basename.yaml'
-  - cl: mkdir assistants/crt
-  - cl: 'echo "fullname: $basename" > "assistants/crt/$basename.yaml"'
+  - if $([ ! -f "assistants/crt/$basename.yaml" ]):
+    - log_i: 'Creating empty crt assistant in assistants/crt/$basename.yaml'
+    - cl: 'mkdir assistants/crt 2>/dev/null || :'
+    - cl: 'echo "fullname: $basename" > "assistants/crt/$basename.yaml"'
+  - else:
+    - log_w: 'Ignoring --crt: assistants/crt/$basename.yaml already exists'
+
 - if $mod:
-  - log_i: 'Creating empty mod assistant in assistants/mod/$basename.yaml'
-  - cl: mkdir assistants/mod
-  - cl: 'echo "fullname: $basename" > "assistants/mod/$basename.yaml"'
+  - if $([ ! -f "assistants/mod/$basename.yaml" ]):
+    - log_i: 'Creating empty mod assistant in assistants/mod/$basename.yaml'
+    - cl: 'mkdir assistants/mod 2>/dev/null || :'
+    - cl: 'echo "fullname: $basename" > "assistants/mod/$basename.yaml"'
+  - else:
+    - log_w: 'Ignoring --mod: assistants/mod/$basename.yaml already exists'
+
 - if $prep:
-  - log_i: 'Creating empty prep assistant in assistants/prep/$basename.yaml'
-  - cl: mkdir assistants/prep
-  - cl: 'echo "fullname: $basename" > "assistants/prep/$basename.yaml"'
+  - if $([ ! -f "assistants/prep/$basename.yaml" ]):
+    - log_i: 'Creating empty prep assistant in assistants/prep/$basename.yaml'
+    - cl: 'mkdir assistants/prep 2>/dev/null || :'
+    - cl: 'echo "fullname: $basename" > "assistants/prep/$basename.yaml"'
+  - else:
+    - log_w: 'Ignoring --prep: assistants/prep/$basename.yaml already exists'
+
 - if $task:
-  - log_i: 'Creating empty task assistant in assistants/task/$basename.yaml'
-  - cl: mkdir assistants/task
-  - cl: 'echo "fullname: $basename" > "assistants/task/$basename.yaml"'
+  - if $([ ! -f "assistants/task/$basename.yaml" ]):
+    - log_i: 'Creating empty task assistant in assistants/task/$basename.yaml'
+    - cl: 'mkdir assistants/task 2>/dev/null || :'
+    - cl: 'echo "fullname: $basename" > "assistants/task/$basename.yaml"'
+  - else:
+    - log_w: 'Ignoring --task: assistants/task/$basename.yaml already exists'
+
 - if $snippet:
-  - log_i: 'Creating empty snippet in snippets/$basename.yaml'
-  - cl: mkdir snippets
-  - cl: touch "snippets/$basename.yaml"
+  - if $([ ! -f "snippets/$basename.yaml" ]):
+    - log_i: 'Creating empty snippet in snippets/$basename.yaml'
+    - cl: mkdir snippets
+    - cl: touch "snippets/$basename.yaml"
+  - else:
+    - log_w: 'Ignoring --snippet: snippets/$basename.yaml already exists'

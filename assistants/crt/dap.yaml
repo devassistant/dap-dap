@@ -36,7 +36,7 @@ run:
 - if not ($crt or $mod or $prep or $task):
   - cl: touch "assistants/.gitkeep"
   - if not $snippet:
-    - log_w: 'You have not specified any of the following options: --crt, --mod, --prep, --task, --snippet. To add assistant or snippet later, use "da mod dap" assistant.'
+    - log_w: 'You have not specified any of the following options: --crt, --mod, --prep, --task, --snippet. To add assistant or snippet later, use "da mod dap add" assistant.'
 - cl: mkdir -p "docs/$basename"
 - cl: touch "docs/$basename/LICENSE"
 - cl: mkdir -p "files/$basename"
