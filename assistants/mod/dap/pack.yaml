@@ -1,0 +1,38 @@
+fullname: Pack a dap
+description: Creates a dap file form the project
+
+args:
+  path:
+    use: common_args
+
+run:
+- if not $path:
+  - $path~: $(echo $PWD)
+- $path~: $(realpath "$path")
+- if $([ ! -f "$path/meta.yaml" ]):
+  - log_e: "I see no meta.yaml, so I guess $path is not a dap project directory"
+- cl: cd "$path"
+
+- $package_name~: $(grep "^package_name:" meta.yaml | cut -f2 -d " ")
+- $version~: $(grep "^version:" meta.yaml | cut -f2 -d " ")
+
+- cl: 'rm -rf "$package_name-$version" 2>/dev/null || :'
+
+- $files~: $(ls -1 | tr "\n" " ")
+
+- cl: 'mkdir "$package_name-$version"'
+- cl: 'cp -r $files "$package_name-$version"'
+
+- cl: 'find "$package_name-$version/assistants" -name .gitkeep -delete'
+- cl: 'find "$package_name-$version/snippets" -name .gitkeep -delete'
+- cl: 'find "$package_name-$version/doc" -name .gitkeep -delete'
+- cl: 'find "$package_name-$version/icons" -name .gitkeep -delete'
+- cl: 'rm "$package_name-$version/files/.gitkeep" 2>/dev/null || :'
+- cl: 'rm "$package_name-$version/"*.dap 2>/dev/null || :'
+- cl: 'find "$package_name-$version" -type d -empty -delete'
+
+- cl: 'tar czf "$package_name-$version".dap "$package_name-$version"/'
+- cl: 'rm -rf "$package_name-$version"'
+
+- log_i: 'Created $package_name-$version.dap'
+- log_i: 'Run "da pkg lint $package_name-$version.dap" to check it'
