@@ -92,8 +92,8 @@ run:
   - if not $snippet:
     - log_w: 'You have not specified any of the following options: --crt, --mod, --prep, --task, --snippet. To add assistant or snippet later, use "da mod dap add" assistant.'
 
-- cl: mkdir -p "docs/$basename"
-- cl: touch "docs/$basename/LICENSE"
+- cl: mkdir -p "doc/$basename"
+- cl: touch "doc/$basename/LICENSE"
 - cl: mkdir -p "files/$basename"
 - cl: touch "files/$basename/.gitkeep"
 - cl: mkdir -p "icons/$basename"

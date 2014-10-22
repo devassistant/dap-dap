@@ -23,16 +23,17 @@ run:
 - cl: 'mkdir "$package_name-$version"'
 - cl: 'cp -r $files "$package_name-$version"'
 
-- cl: 'find "$package_name-$version/assistants" -name .gitkeep -delete'
-- cl: 'find "$package_name-$version/snippets" -name .gitkeep -delete'
-- cl: 'find "$package_name-$version/doc" -name .gitkeep -delete'
-- cl: 'find "$package_name-$version/icons" -name .gitkeep -delete'
+- cl: 'find "$package_name-$version/assistants" -name .gitkeep -delete 2>/dev/null || :'
+- cl: 'find "$package_name-$version/snippets" -name .gitkeep -delete 2>/dev/null || :'
+- cl: 'find "$package_name-$version/doc" -name .gitkeep -delete 2>/dev/null || :'
+- cl: 'find "$package_name-$version/icons" -name .gitkeep -delete 2>/dev/null || :'
 - cl: 'rm "$package_name-$version/files/.gitkeep" 2>/dev/null || :'
+- cl: 'rm "$package_name-$version/files/$package_name/.gitkeep" 2>/dev/null || :'
 - cl: 'rm "$package_name-$version/"*.dap 2>/dev/null || :'
 - cl: 'find "$package_name-$version" -type d -empty -delete'
 
 - cl: 'tar czf "$package_name-$version".dap "$package_name-$version"/'
-- cl: 'rm -rf "$package_name-$version"'
+- cl: 'rm -rf "$package_name-$version" 2>/dev/null || :'
 
 - log_i: 'Created $package_name-$version.dap'
 - log_i: 'Run "da pkg lint $package_name-$version.dap" to check it'
