@@ -101,6 +101,6 @@ run:
 - cl: echo '*.dap' > .gitignore
 
 - use: dap.run
-- use: git_init_add_commit.run
+- use: git.init_add_commit.run
 - if defined $github:
   - github: create_and_push
