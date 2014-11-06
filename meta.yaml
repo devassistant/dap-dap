@@ -1,5 +1,5 @@
 package_name: dap
-version: 0.0.1a
+version: 0.0.2a
 license: GPLv2+
 authors: [Miro Hrončok <miro@hroncok.cz>]
 homepage: https://github.com/devassistant/dap-dap
