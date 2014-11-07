@@ -70,7 +70,7 @@ run:
     create_topdir: normalized
     normalize_ok_chars: "-"
     contdir_var: dirname
-    topdir_var: basename
+    topdir_normalized_var: basename
 - cl: cd "$dirname/$basename"
 
 - log_i: 'Creating meta.yaml'
