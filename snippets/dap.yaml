@@ -6,16 +6,16 @@ args:
     const: crt
     default: ''
     help:
-      'Create empty crt assistant'
+      'Create empty "crt" assistant'
 
-  mod:
+  twk:
     flags:
-    - --mod
+    - --twk
     action: store_const
-    const: mod
+    const: twk
     default: ''
     help:
-      'Create empty mod assistant'
+      'Create empty "twk" assistant'
 
   prep:
     flags:
@@ -24,16 +24,16 @@ args:
     const: prep
     default: ''
     help:
-      'Create empty prep assistant'
+      'Create empty "prep" assistant'
 
-  task:
+  extra:
     flags:
-    - --task
+    - --extra
     action: store_const
-    const: task
+    const: extra
     default: ''
     help:
-      'Create empty task assistant'
+      'Create empty "extra" assistant'
 
   snippet:
     flags:
@@ -56,13 +56,13 @@ run:
   - else:
     - log_w: 'Ignoring --crt: assistants/crt/$basename.yaml already exists'
 
-- if $mod:
-  - if $([ ! -f "assistants/mod/$basename.yaml" ]):
-    - log_i: 'Creating empty mod assistant in assistants/mod/$basename.yaml'
-    - cl: 'mkdir assistants/mod 2>/dev/null || :'
-    - cl: 'echo "fullname: $basename" > "assistants/mod/$basename.yaml"'
+- if $twk:
+  - if $([ ! -f "assistants/twk/$basename.yaml" ]):
+    - log_i: 'Creating empty twk assistant in assistants/twk/$basename.yaml'
+    - cl: 'mkdir assistants/twk 2>/dev/null || :'
+    - cl: 'echo "fullname: $basename" > "assistants/twk/$basename.yaml"'
   - else:
-    - log_w: 'Ignoring --mod: assistants/mod/$basename.yaml already exists'
+    - log_w: 'Ignoring --twk: assistants/twk/$basename.yaml already exists'
 
 - if $prep:
   - if $([ ! -f "assistants/prep/$basename.yaml" ]):
@@ -72,13 +72,13 @@ run:
   - else:
     - log_w: 'Ignoring --prep: assistants/prep/$basename.yaml already exists'
 
-- if $task:
-  - if $([ ! -f "assistants/task/$basename.yaml" ]):
-    - log_i: 'Creating empty task assistant in assistants/task/$basename.yaml'
-    - cl: 'mkdir assistants/task 2>/dev/null || :'
-    - cl: 'echo "fullname: $basename" > "assistants/task/$basename.yaml"'
+- if $extra:
+  - if $([ ! -f "assistants/extra/$basename.yaml" ]):
+    - log_i: 'Creating empty extra assistant in assistants/extra/$basename.yaml'
+    - cl: 'mkdir assistants/extra 2>/dev/null || :'
+    - cl: 'echo "fullname: $basename" > "assistants/extra/$basename.yaml"'
   - else:
-    - log_w: 'Ignoring --task: assistants/task/$basename.yaml already exists'
+    - log_w: 'Ignoring --extra: assistants/extra/$basename.yaml already exists'
 
 - if $snippet:
   - if $([ ! -f "snippets/$basename.yaml" ]):

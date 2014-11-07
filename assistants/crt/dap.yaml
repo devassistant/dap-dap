@@ -51,13 +51,13 @@ args:
   crt:
     use: dap
 
-  mod:
+  twk:
     use: dap
 
   prep:
     use: dap
 
-  task:
+  extra:
     use: dap
 
   snippet:
@@ -87,10 +87,10 @@ run:
 - log_i: 'Creating dap directory structure'
 - cl: mkdir -p "assistants"
 
-- if not ($crt or $mod or $prep or $task):
+- if not ($crt or $twk or $prep or $extra):
   - cl: touch "assistants/.gitkeep"
   - if not $snippet:
-    - log_w: 'You have not specified any of the following options: --crt, --mod, --prep, --task, --snippet. To add assistant or snippet later, use "da mod dap add" assistant.'
+    - log_w: 'You have not specified any of the following options: --crt, --twk, --prep, --extra, --snippet. To add assistant or snippet later, use "da twk dap add" assistant.'
 
 - cl: mkdir -p "doc/$basename"
 - cl: touch "doc/$basename/LICENSE"
