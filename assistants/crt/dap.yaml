@@ -67,10 +67,11 @@ run:
 - setup_project_dir:
     from: $name
     on_existing: fail
-    create_topdir: True
+    create_topdir: normalized
+    normalize_ok_chars: "-"
     contdir_var: dirname
-    topdir_normalized_var: basename
-- cl: cd "$basename"
+    topdir_var: basename
+- cl: cd "$dirname/$basename"
 
 - log_i: 'Creating meta.yaml'
 - cl: 'echo "package_name: $basename" > meta.yaml'
