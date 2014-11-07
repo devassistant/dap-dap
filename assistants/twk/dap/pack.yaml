@@ -1,5 +1,5 @@
-fullname: Pack a dap
-description: Creates a dap file form the project
+fullname: Pack a DAP
+description: Creates a .dap file form the project
 
 args:
   path:
@@ -10,7 +10,7 @@ run:
   - $path~: $(echo $PWD)
 - $path~: $(realpath "$path")
 - if $([ ! -f "$path/meta.yaml" ]):
-  - log_e: "I see no meta.yaml, so I guess $path is not a dap project directory"
+  - log_e: "I see no meta.yaml, so I guess $path is not a DAP project directory"
 - cl: cd "$path"
 
 - $package_name~: $(grep "^package_name:" meta.yaml | cut -f2 -d " ")

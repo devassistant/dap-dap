@@ -1,5 +1,5 @@
 fullname: Add assistant or snippet
-description: Adds specific type of assistant or a snippet to an existing dap project
+description: Adds specific type of assistant or a snippet to an existing DAP
 
 args:
   path:
@@ -25,7 +25,7 @@ run:
   - $path~: $(echo $PWD)
 - $path~: $(realpath "$path")
 - if $([ ! -f "$path/meta.yaml" ]):
-  - log_e: "I see no meta.yaml, so I guess $path is not a dap project directory"
+  - log_e: "I see no meta.yaml, so I guess $path is not a DAP project directory"
 - cl: cd "$path"
 - cl: 'mkdir -p assistants 2> /dev/null || :'
 - if not ($crt or $twk or $prep or $extra or $snippet):

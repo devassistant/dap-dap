@@ -10,17 +10,17 @@ args:
 
   version:
     flags: [--version]
-    help: "Specify the dap version"
+    help: "Specify the DAP version"
     default: '0.0.1dev'
 
   license:
     flags: [--license]
-    help: "Specify the dap license"
+    help: "Specify the DAP license"
     default: 'FIXME'
 
   homepage:
     flags: [--homepage]
-    help: "Specify the dap homepage"
+    help: "Specify the DAP homepage"
     default: 'FIXME'
 
   bugreports:
@@ -30,12 +30,12 @@ args:
 
   summary:
     flags: [--summary]
-    help: "Specify the dap summary"
-    default: 'A fresh new dap'
+    help: "Specify the DAP summary"
+    default: 'A fresh new DAP'
 
   description:
     flags: [--description]
-    help: "Specify the dap description"
+    help: "Specify the DAP description"
     default: ''
 
   author:
@@ -84,7 +84,7 @@ run:
 - if $description:
   - cl: 'echo "description: $description" >> meta.yaml'
 
-- log_i: 'Creating dap directory structure'
+- log_i: 'Creating DAP directory structure'
 - cl: mkdir -p "assistants"
 
 - if not ($crt or $twk or $prep or $extra):
