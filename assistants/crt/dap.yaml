@@ -104,4 +104,6 @@ run:
 - use: dap.run
 - use: git.init_add_commit.run
 - if defined $github:
-  - github: create_and_push
+  - github:
+    - create_and_push
+    - reponame: $basename
