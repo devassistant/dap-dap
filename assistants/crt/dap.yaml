@@ -63,15 +63,29 @@ args:
   snippet:
     use: dap
 
+  dirname:
+    flags: [-d, --dirname]
+    help: "Specify the name of a directory and the git repository. Defaults to dap-{name}"
+    default: ''
+
 run:
+- $basename~:
+  - normalize:
+      what: "$name"
+      ok_chars: "-"
+- if not $dirname:
+  - $normdirname: dap-$basename
+- else:
+  - $normdirname~:
+    - normalize:
+        what: "$dirname"
+        ok_chars: "-"
 - setup_project_dir:
-    from: $name
+    from: $normdirname
     on_existing: fail
-    create_topdir: normalized
-    normalize_ok_chars: "-"
-    contdir_var: dirname
-    topdir_normalized_var: basename
-- cl: cd "$dirname/$basename"
+    create_topdir: True
+- log_i: "Creting $normdirname direcotry with dap named $basename"
+- cl: cd "$contdir/$normdirname"
 
 - log_i: 'Creating meta.yaml'
 - cl: 'echo "package_name: $basename" > meta.yaml'
@@ -106,4 +120,4 @@ run:
 - if defined $github:
   - github:
     - create_and_push
-    - reponame: $basename
+    - reponame: $normdirname
