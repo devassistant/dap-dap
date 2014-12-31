@@ -99,6 +99,9 @@ run:
 - if $description:
   - cl: 'echo "description: $description" >> meta.yaml'
 
+- log_i: 'Creating .dapignore'
+- cl: 'echo ".gitkeep" > .dapignore'
+
 - log_i: 'Creating DAP directory structure'
 - cl: mkdir -p "assistants"
 

@@ -13,3 +13,5 @@ description: |
     This assistants helps you with creating DAPs - DevAssistant packages.
     It lets you create the git repository with the sources and also to package
     the assistants as .dap file.
+    
+    See README.md for more specific documentation.
