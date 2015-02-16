@@ -30,4 +30,4 @@ run:
 - cl: 'mkdir -p assistants 2> /dev/null || :'
 - if not ($crt or $twk or $prep or $extra or $snippet):
   - log_e: 'You have not specified any of the following options: --crt, --twk, --prep, --extra, --snippet. At least one of them is necessary.'
-- use: dap.run
+- use: dap.run_add

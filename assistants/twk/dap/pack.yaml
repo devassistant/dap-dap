@@ -24,8 +24,13 @@ run:
 - cl: 'cp -r $files "$package_name-$version"'
 
 - cl: 'rm "$package_name-$version/"*.dap 2>/dev/null || :'
-- cl: 'while read L; do if [[ "x$L" == "x" ]] || [[ "$L" == \#* ]] || [[ "$L" == " "* ]] || [[ "$L" == ./* ]] || [[ "$L" == /* ]] || [[ "$L" == ..* ]] || [[ "$L" == ~/* ]]; then continue; fi; find "$package_name-$version" -name "$L" -delete; done < .dapignore'
-- cl: 'while read L; do if [[ "$L" == ./* ]]; then rm -r "$package_name-$version/$L" || :; fi; done < .dapignore'
+
+- use:
+    sect: dap.run_dapignore
+    args:
+      directory: $package_name-$version
+      ignorefile: .dapignore
+
 - cl: 'find "$package_name-$version" -type d -empty -delete'
 
 - cl: 'tar czf "$package_name-$version".dap "$package_name-$version"/'

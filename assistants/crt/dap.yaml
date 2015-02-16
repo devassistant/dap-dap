@@ -118,7 +118,7 @@ run:
 - cl: touch "icons/$basename/.gitkeep"
 - cl: echo '*.dap' > .gitignore
 
-- use: dap.run
+- use: dap.run_add
 - use: git.init_add_commit.run
 - if defined $github:
   - github:
