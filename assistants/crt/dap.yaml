@@ -84,6 +84,9 @@ run:
     from: $normdirname
     on_existing: fail
     create_topdir: True
+
+- dda_c: "$contdir/$normdirname"
+
 - log_i: "Creting $normdirname direcotry with dap named $basename"
 - cl: cd "$contdir/$normdirname"
 

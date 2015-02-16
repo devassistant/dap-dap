@@ -35,7 +35,7 @@ The following examples will be ignored:
 Some files are ignored implicitly:
 
  * `*.dap` files in the top level directory
- * hidden files (starting with dot) in the top level directory (usually `.gitignore` or `.dapignore` itself)
+ * hidden files (starting with dot) in the top level directory (usually `.devassistant`, `.gitignore` or `.dapignore` itself)
  * empty directories
 
 There is currently no way to disable this implicit behavior.
