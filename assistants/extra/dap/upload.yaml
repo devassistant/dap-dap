@@ -1,0 +1,35 @@
+fullname: Upload a DAP
+description: Uploads a .dap file to DAPI
+
+args:
+  dap:
+    flags:
+    - -d
+    - --dap
+    help:
+      'DAP file to upload'
+    required:
+      True
+
+run:
+# Prompt for DAPI token when not set
+- $token~: $(git config --global devassistant.dapi.token)
+- if not $token:
+  - $token~:
+    - ask_input:
+        prompt: "Go to your profile on dapi.devassistant.org and copy the token, paste it here"
+        message: "You don't have the DAPI token set in git config"
+  - cl: git config --global devassistant.dapi.token "$token"
+
+# Upload the file
+- $result~: '$(curl -sS https://dapi.devassistant.org/api/upload/ -H "Authorization: Token $token" --form "file=@$dap")'
+
+# And display some output
+- if "{uploaded" in $result:
+  - log_i: $dap successfully uploaded
+- else:
+  - if "Invalid token" in $result:
+    - cl: git config --global --unset devassistant.dapi.token
+    - log_e: Invalid token, run me again to save a new value
+  - else:
+    - log_e: $result
