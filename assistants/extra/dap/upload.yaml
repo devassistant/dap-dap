@@ -10,6 +10,14 @@ args:
       'DAP file to upload'
     required:
       True
+  server:
+    flags:
+    - -s
+    - --server
+    help:
+      'DAPI server to upload to (defaults to dapi.devassistant.org)'
+    default:
+      'dapi.devassistant.org'
 
 run:
 # Prompt for DAPI token when not set
@@ -22,7 +30,7 @@ run:
   - cl: git config --global devassistant.dapi.token "$token"
 
 # Upload the file
-- $result~: '$(curl -sS https://dapi.devassistant.org/api/upload/ -H "Authorization: Token $token" --form "file=@$dap")'
+- $result~: '$(curl -sS https://$server/api/upload/ -H "Authorization: Token $token" --form "file=@$dap")'
 
 # And display some output
 - if "{uploaded" in $result:
