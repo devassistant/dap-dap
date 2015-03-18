@@ -18,8 +18,21 @@ args:
       'DAPI server to upload to (defaults to dapi.devassistant.org)'
     default:
       'dapi.devassistant.org'
+  terms:
+    flags: [--agree-with-terms]
+    help: 'By using this flag, you express agreement with the DAPI Terms of Use (https://dapi.devassistant.org/terms/)'
+    action: store_true
 
 run:
+# Prompt for Terms agreement if the flag is not used
+- if not $terms:
+  - $confirmed~:
+    - ask_confirm:
+        message: 'By uploading the DAP, you agree to the DAPI Terms of Use (https://$server/terms/)'
+        prompt: 'Have you read the DAPI Terms of Use and do you agree with them?'
+  - if not $confirmed:
+    - log_e: 'What a pity'
+
 # Prompt for DAPI token when not set
 - $token~: $(git config --global devassistant.dapi.token)
 - if not $token:
