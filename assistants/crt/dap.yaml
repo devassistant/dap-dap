@@ -127,3 +127,4 @@ run:
   - github:
     - create_and_push
     - reponame: $normdirname
+      login: $github
