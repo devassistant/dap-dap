@@ -4,6 +4,7 @@ python:
 install:
 - pip install git+https://github.com/devassistant/devassistant.git
 - sudo apt-get install realpath
+- da pkg install common_args github
 script:
 - DEVASSISTANT_HOME=. da twk dap pack
 - da pkg lint -w *.dap
