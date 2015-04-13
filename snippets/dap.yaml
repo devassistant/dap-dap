@@ -89,5 +89,6 @@ run_add:
     - log_w: 'Ignoring --snippet: snippets/$basename.yaml already exists'
 
 run_dapignore:
-- cl: 'while read L; do if [[ "x$L" == "x" ]] || [[ "$L" == \#* ]] || [[ "$L" == " "* ]] || [[ "$L" == ./* ]] || [[ "$L" == /* ]] || [[ "$L" == ..* ]] || [[ "$L" == ~/* ]]; then continue; fi; find "$directory" -name "$L" -delete; done < $ignorefile'
-- cl: 'while read L; do if [[ "$L" == ./* ]]; then rm -r "$directory/$L" || :; fi; done < $ignorefile'
+- if $([ -f "$ignorefile" ]):
+  - cl: 'while read L; do if [[ "x$L" == "x" ]] || [[ "$L" == \#* ]] || [[ "$L" == " "* ]] || [[ "$L" == ./* ]] || [[ "$L" == /* ]] || [[ "$L" == ..* ]] || [[ "$L" == ~/* ]]; then continue; fi; find "$directory" -name "$L" -delete; done < "$ignorefile"'
+  - cl: 'while read L; do if [[ "$L" == ./* ]]; then rm -r "$directory/$L" || :; fi; done < "$ignorefile"'
